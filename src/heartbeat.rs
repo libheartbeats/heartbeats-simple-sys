@@ -1,21 +1,25 @@
 use libc::{uint64_t, int64_t, c_double, c_int};
 use std::mem;
 
+/// Typedef for the window completion callback function.
 pub type HeartbeatWindowCompleteFn = extern fn(*const Heartbeat, *const HeartbeatRecord, uint64_t);
 
 #[link(name = "hbs-pow")]
 extern {
+    /// Initialize a Heartbeat.
     fn heartbeat_init(hb: *mut Heartbeat,
                       window_size: uint64_t,
                       window_buffer: *mut HeartbeatRecord,
                       hwc_callback: Option<HeartbeatWindowCompleteFn>) -> c_int;
 
+    /// Issue a heartbeat.
     fn heartbeat(hb: *mut Heartbeat,
                  user_tag: uint64_t,
                  work: uint64_t,
                  start_time: int64_t,
                  end_time: int64_t);
 
+    /// Issue a heartbeat with energy data.
     fn heartbeat_pow(hb: *mut Heartbeat,
                      user_tag: uint64_t,
                      work: uint64_t,
@@ -24,17 +28,22 @@ extern {
                      start_energy: uint64_t,
                      end_energy: uint64_t);
 
+    /// Writes the window buffer to the log specified by the file descriptor.
     pub fn heartbeat_log_window_buffer(hb: *const Heartbeat,
                                        fd: c_int,
                                        print_header: c_int) -> c_int;
 
+    /// Utility function to get the most recent user-specified tag
     fn hb_get_user_tag(hb: *const Heartbeat) -> uint64_t;
 
+    /// Utility function to get the current window performance.
     fn hb_get_window_rate(hb: *const Heartbeat) -> c_double;
 
+    /// Utility function to get the current window power.
     fn hb_get_window_power(hb: *const Heartbeat) -> c_double;
 }
 
+/// Time data.
 #[derive(Clone, Copy)]
 #[repr(C)]
 struct HeartbeatTimeData {
@@ -42,6 +51,7 @@ struct HeartbeatTimeData {
     window_time: int64_t,
 }
 
+/// Work data.
 #[derive(Clone, Copy)]
 #[repr(C)]
 struct HeartbeatWorkData {
@@ -49,6 +59,7 @@ struct HeartbeatWorkData {
     window_work: uint64_t,
 }
 
+/// Energy data
 #[derive(Clone, Copy)]
 #[repr(C)]
 struct HeartbeatEnergyData {
@@ -56,6 +67,7 @@ struct HeartbeatEnergyData {
     window_energy: uint64_t,
 }
 
+/// A Heartbeat record with current rates (performance and power).
 #[derive(Clone, Copy)]
 #[repr(C)]
 pub struct HeartbeatRecord {
@@ -76,10 +88,11 @@ pub struct HeartbeatRecord {
     pub instant_pwr: c_double,
 }
 
+/// A `Heartbeat` is used for tracking performance/power of recurring jobs.
+/// This represents a C struct.
 #[allow(raw_pointer_derive)]
 #[derive(Clone, Copy)]
 #[repr(C)]
-/// A `Heartbeat` is used for tracking performance/power of recurring jobs.
 pub struct Heartbeat {
     counter: uint64_t,
     buffer_index: uint64_t,
@@ -93,6 +106,7 @@ pub struct Heartbeat {
     ed: HeartbeatEnergyData,
 }
 
+/// Heartbeat wrapper. Contains the window data buffer.
 pub struct HeartbeatSimple {
     pub hb: Heartbeat,
     pub hbr: Vec<HeartbeatRecord>,
