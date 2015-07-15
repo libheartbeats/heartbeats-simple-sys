@@ -24,6 +24,10 @@ extern {
                      start_energy: uint64_t,
                      end_energy: uint64_t);
 
+    pub fn heartbeat_log_window_buffer(hb: *const Heartbeat,
+                                       fd: c_int,
+                                       print_header: c_int) -> c_int;
+
     fn hb_get_user_tag(hb: *const Heartbeat) -> uint64_t;
 
     fn hb_get_window_rate(hb: *const Heartbeat) -> c_double;
@@ -159,14 +163,37 @@ impl HeartbeatSimple {
 #[cfg(test)]
 mod test {
     use super::*;
+    use libc::uint64_t;
+
+    extern fn heartbeat_window_complete_callback(hb: *const Heartbeat,
+                                                 _hbr: *const HeartbeatRecord,
+                                                 _size: uint64_t) {
+    const STDOUT: i32 = 1;
+    unsafe {
+        heartbeat_log_window_buffer(hb, STDOUT, 0);
+    }
+}
 
     #[test]
     fn test_simple() {
-        let mut hb = HeartbeatSimple::new(20, None).unwrap();
-        hb.heartbeat(1, 1, 0, 1000000000);
-        assert!(hb.get_tag() == 1);
-        assert!(hb.get_window_perf() == 1.0);
-        hb.heartbeat_pow(2, 1, 1000000000, 2000000000, 0, 2000000);
-        assert!(hb.get_window_pwr() == 1.0)
+        const TIME_INC: i64 = 1000000000;
+        const ENERGY_INC: u64 = 1000000;
+        let mut hb = HeartbeatSimple::new(5, Some(heartbeat_window_complete_callback)).unwrap();
+        let mut start_time: i64 = 0;
+        let mut end_time: i64 = TIME_INC;
+        let mut start_energy: u64 = 0;
+        let mut end_energy: u64 = ENERGY_INC;
+        let mut tag: u64 = 0;
+        for _ in 0..10 {
+            hb.heartbeat_pow(tag, 1, start_time, end_time, start_energy, end_energy);
+            assert!(hb.get_tag() == tag);
+            assert!(hb.get_window_perf() == 1.0);
+            assert!(hb.get_window_pwr() == 1.0);
+            tag += 1;
+            start_time = end_time;
+            end_time += TIME_INC;
+            start_energy = end_energy;
+            end_energy += ENERGY_INC;
+        }
     }
 }
