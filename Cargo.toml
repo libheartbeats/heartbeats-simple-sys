@@ -1,0 +1,7 @@
+[package]
+name = "heartbeats_simple_sys"
+version = "0.1.0"
+authors = ["Connor Imes <cimes@mozilla.com>"]
+
+[dependencies]
+libc = "0.1"
