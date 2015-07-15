@@ -1,4 +1,4 @@
-use libc::{uint64_t, int64_t, c_double, c_int};
+use libc::{uint64_t, c_double, c_int};
 use std::mem;
 
 /// Typedef for the window completion callback function.
@@ -16,15 +16,15 @@ extern {
     fn heartbeat(hb: *mut Heartbeat,
                  user_tag: uint64_t,
                  work: uint64_t,
-                 start_time: int64_t,
-                 end_time: int64_t);
+                 start_time: uint64_t,
+                 end_time: uint64_t);
 
     /// Issue a heartbeat with energy data.
     fn heartbeat_pow(hb: *mut Heartbeat,
                      user_tag: uint64_t,
                      work: uint64_t,
-                     start_time: int64_t,
-                     end_time: int64_t,
+                     start_time: uint64_t,
+                     end_time: uint64_t,
                      start_energy: uint64_t,
                      end_energy: uint64_t);
 
@@ -47,8 +47,8 @@ extern {
 #[derive(Clone, Copy)]
 #[repr(C)]
 struct HeartbeatTimeData {
-    total_time: int64_t,
-    window_time: int64_t,
+    total_time: uint64_t,
+    window_time: uint64_t,
 }
 
 /// Work data.
@@ -75,8 +75,8 @@ pub struct HeartbeatRecord {
     pub user_tag: uint64_t,
 
     pub work: uint64_t,
-    pub start_time: int64_t,
-    pub end_time: int64_t,
+    pub start_time: uint64_t,
+    pub end_time: uint64_t,
     pub global_perf: c_double,
     pub window_perf: c_double,
     pub instant_perf: c_double,
@@ -132,8 +132,8 @@ impl HeartbeatSimple {
     pub fn heartbeat(&mut self,
                      tag: u64,
                      work: u64,
-                     start_time: i64,
-                     end_time: i64) {
+                     start_time: u64,
+                     end_time: u64) {
         unsafe {
             heartbeat(&mut self.hb, tag, work, start_time, end_time)
         }
@@ -143,8 +143,8 @@ impl HeartbeatSimple {
     pub fn heartbeat_pow(&mut self,
                          tag: u64,
                          work: u64,
-                         start_time: i64,
-                         end_time: i64,
+                         start_time: u64,
+                         end_time: u64,
                          start_energy: u64,
                          end_energy: u64) {
         unsafe {
@@ -190,11 +190,11 @@ mod test {
 
     #[test]
     fn test_simple() {
-        const TIME_INC: i64 = 1000000000;
+        const TIME_INC: u64 = 1000000000;
         const ENERGY_INC: u64 = 1000000;
         let mut hb = HeartbeatSimple::new(5, Some(heartbeat_window_complete_callback)).unwrap();
-        let mut start_time: i64 = 0;
-        let mut end_time: i64 = TIME_INC;
+        let mut start_time: u64 = 0;
+        let mut end_time: u64 = TIME_INC;
         let mut start_energy: u64 = 0;
         let mut end_energy: u64 = ENERGY_INC;
         let mut tag: u64 = 0;
