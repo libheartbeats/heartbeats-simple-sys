@@ -1,5 +1,5 @@
 use std::mem;
-use heartbeat::{self, Heartbeat, HeartbeatRecord, HeartbeatWindowCompleteFn};
+use heartbeat::*;
 #[cfg(unix)]
 use std::fs::File;
 #[cfg(unix)]
@@ -18,7 +18,7 @@ impl HeartbeatContainer {
         let mut hbr = Vec::with_capacity(window_size);
         unsafe {
             let mut hb = mem::uninitialized();
-            match heartbeat::heartbeat_init(&mut hb, hbr.capacity() as u64, hbr.as_mut_ptr(), hwc_callback) {
+            match heartbeat_init(&mut hb, hbr.capacity() as u64, hbr.as_mut_ptr(), hwc_callback) {
                 0 => Ok(HeartbeatContainer { hb: hb, hbr: hbr, }),
                 _ => Err("Failed to initialize heartbeat")
             }
@@ -32,7 +32,7 @@ impl HeartbeatContainer {
                      start_time: u64,
                      end_time: u64) {
         unsafe {
-            heartbeat::heartbeat(&mut self.hb, tag, work, start_time, end_time);
+            heartbeat(&mut self.hb, tag, work, start_time, end_time);
         }
     }
 
@@ -45,7 +45,7 @@ impl HeartbeatContainer {
                          start_energy: u64,
                          end_energy: u64) {
         unsafe {
-            heartbeat::heartbeat_pow(&mut self.hb, tag, work, start_time, end_time, start_energy, end_energy)
+            heartbeat_pow(&mut self.hb, tag, work, start_time, end_time, start_energy, end_energy)
         }
     }
 
@@ -56,7 +56,7 @@ impl HeartbeatContainer {
             false => 0,
         };
         unsafe {
-            match heartbeat::heartbeat_log_window_buffer(&self.hb, log.as_raw_fd(), ph) {
+            match heartbeat_log_window_buffer(&self.hb, log.as_raw_fd(), ph) {
                 0 => Ok(()),
                 _ => Err("Error logging window buffer"),
             }
@@ -66,21 +66,21 @@ impl HeartbeatContainer {
     /// Utility function to get the most recent user-specified tag
     pub fn get_tag(&self) -> u64 {
         unsafe {
-            heartbeat::hb_get_user_tag(&self.hb)
+            hb_get_user_tag(&self.hb)
         }
     }
 
     /// Utility function to get the current window performance.
     pub fn get_window_perf(&self) -> f64 {
         unsafe {
-            heartbeat::hb_get_window_rate(&self.hb)
+            hb_get_window_rate(&self.hb)
         }
     }
 
     /// Utility function to get the current window power.
     pub fn get_window_pwr(&self) -> f64 {
         unsafe {
-            heartbeat::hb_get_window_power(&self.hb)
+            hb_get_window_power(&self.hb)
         }
     }
 }
