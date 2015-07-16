@@ -1,7 +1,14 @@
 [package]
-name = "heartbeats_simple_sys"
+name = "heartbeats-simple-sys"
 version = "0.1.0"
-authors = ["Connor Imes <cimes@mozilla.com>"]
+authors = ["Connor Imes <connor.k.imes@gmail.com>"]
+description = "FFI bindings to libhb-pow"
+homepage = "https://github.com/connorimes/heartbeats-simple-sys"
+repository = "https://github.com/connorimes/heartbeats-simple-sys"
+keywords = ["heartbeats", "timing", "performance", "energy", "power", "bindings"]
+
+build = "build.rs"
+links = "hbs-pow"
 
 [dependencies]
 libc = "0.1"

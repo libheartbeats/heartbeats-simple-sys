@@ -1,10 +1,13 @@
 use libc::{uint64_t, c_double, c_int};
 use std::mem;
+#[cfg(unix)]
+use std::fs::File;
+#[cfg(unix)]
+use std::os::unix::io::AsRawFd;
 
 /// Typedef for the window completion callback function.
 pub type HeartbeatWindowCompleteFn = extern fn(*const Heartbeat, *const HeartbeatRecord, uint64_t);
 
-#[link(name = "hbs-pow")]
 extern {
     /// Initialize a Heartbeat.
     fn heartbeat_init(hb: *mut Heartbeat,
@@ -28,6 +31,7 @@ extern {
                      start_energy: uint64_t,
                      end_energy: uint64_t);
 
+    #[cfg(unix)]
     /// Writes the window buffer to the log specified by the file descriptor.
     fn heartbeat_log_window_buffer(hb: *const Heartbeat,
                                    fd: c_int,
@@ -152,11 +156,13 @@ impl HeartbeatSimple {
         }
     }
 
-    pub fn log_window_buffer(&self, fd: i32, print_header: bool) -> Result<(), &'static str> {
+    #[cfg(unix)]
+    pub fn log_window_buffer(&self, log: File, print_header: bool) -> Result<(), &'static str> {
         let ph: c_int = match print_header {
             true => 1,
             false => 0,
         };
+        let fd = log.as_raw_fd();
         unsafe {
             match heartbeat_log_window_buffer(&self.hb, fd, ph) {
                 0 => Ok(()),
@@ -190,22 +196,12 @@ impl HeartbeatSimple {
 #[cfg(test)]
 mod test {
     use super::*;
-    use libc::uint64_t;
-
-    extern fn heartbeat_window_complete_callback(hb: *const Heartbeat,
-                                                 _hbr: *const HeartbeatRecord,
-                                                 _size: uint64_t) {
-    const STDOUT: i32 = 1;
-    unsafe {
-        heartbeat_log_window_buffer(hb, STDOUT, 0);
-    }
-}
 
     #[test]
     fn test_simple() {
         const TIME_INC: u64 = 1000000000;
         const ENERGY_INC: u64 = 1000000;
-        let mut hb = HeartbeatSimple::new(5, Some(heartbeat_window_complete_callback)).unwrap();
+        let mut hb = HeartbeatSimple::new(5, None).unwrap();
         let mut start_time: u64 = 0;
         let mut end_time: u64 = TIME_INC;
         let mut start_energy: u64 = 0;
