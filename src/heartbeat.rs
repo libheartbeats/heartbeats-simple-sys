@@ -29,9 +29,9 @@ extern {
                      end_energy: uint64_t);
 
     /// Writes the window buffer to the log specified by the file descriptor.
-    pub fn heartbeat_log_window_buffer(hb: *const Heartbeat,
-                                       fd: c_int,
-                                       print_header: c_int) -> c_int;
+    fn heartbeat_log_window_buffer(hb: *const Heartbeat,
+                                   fd: c_int,
+                                   print_header: c_int) -> c_int;
 
     /// Utility function to get the most recent user-specified tag
     fn hb_get_user_tag(hb: *const Heartbeat) -> uint64_t;
@@ -149,6 +149,19 @@ impl HeartbeatSimple {
                          end_energy: u64) {
         unsafe {
             heartbeat_pow(&mut self.hb, tag, work, start_time, end_time, start_energy, end_energy)
+        }
+    }
+
+    pub fn log_window_buffer(&self, fd: i32, print_header: bool) -> Result<(), &'static str> {
+        let ph: c_int = match print_header {
+            true => 1,
+            false => 0,
+        };
+        unsafe {
+            match heartbeat_log_window_buffer(&self.hb, fd, ph) {
+                0 => Ok(()),
+                _ => Err("Error logging window buffer"),
+            }
         }
     }
 
