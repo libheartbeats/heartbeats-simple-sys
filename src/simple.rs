@@ -1,5 +1,5 @@
+use super::*;
 use std::mem;
-use heartbeat::*;
 #[cfg(unix)]
 use std::fs::File;
 #[cfg(unix)]
