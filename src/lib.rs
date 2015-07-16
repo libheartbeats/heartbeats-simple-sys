@@ -1,6 +1,6 @@
 extern crate libc;
 
-pub mod simple;
+pub mod wrapper;
 
 use libc::{uint64_t, c_double, c_int};
 
