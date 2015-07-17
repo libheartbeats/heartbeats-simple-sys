@@ -46,6 +46,7 @@ pub struct heartbeat_context {
     buffer_index: uint64_t,
     read_index: uint64_t,
     window_size: uint64_t,
+    lock: c_int,
     window_buffer: *mut heartbeat_record,
     hwc_callback: heartbeat_window_complete,
 
