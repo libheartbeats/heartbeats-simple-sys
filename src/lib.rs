@@ -12,25 +12,11 @@ pub type heartbeat_window_complete = extern fn(*const heartbeat_context,
                                                *const heartbeat_record,
                                                uint64_t);
 
-/// Time data.
+/// Unsigned global and window data.
 #[repr(C)]
-pub struct heartbeat_time_data {
-    total_time: uint64_t,
-    window_time: uint64_t,
-}
-
-/// Work data.
-#[repr(C)]
-pub struct heartbeat_work_data {
-    total_work: uint64_t,
-    window_work: uint64_t,
-}
-
-/// Energy data
-#[repr(C)]
-pub struct heartbeat_energy_data {
-    total_energy: uint64_t,
-    window_energy: uint64_t,
+pub struct heartbeat_udata {
+    global: uint64_t,
+    window: uint64_t,
 }
 
 /// A heartbeat record with current rates (performance and power).
@@ -63,9 +49,9 @@ pub struct heartbeat_context {
     window_buffer: *mut heartbeat_record,
     hwc_callback: heartbeat_window_complete,
 
-    td: heartbeat_time_data,
-    wd: heartbeat_work_data,
-    ed: heartbeat_energy_data,
+    td: heartbeat_udata,
+    wd: heartbeat_udata,
+    ed: heartbeat_udata,
 }
 
 extern "C" {
