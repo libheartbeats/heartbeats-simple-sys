@@ -14,7 +14,7 @@ pub type heartbeat_window_complete = extern fn(*const heartbeat_context,
 
 /// Time data.
 #[repr(C)]
-pub struct heartbeat_contextime_data {
+pub struct heartbeat_time_data {
     total_time: uint64_t,
     window_time: uint64_t,
 }
@@ -63,7 +63,7 @@ pub struct heartbeat_context {
     window_buffer: *mut heartbeat_record,
     hwc_callback: heartbeat_window_complete,
 
-    td: heartbeat_contextime_data,
+    td: heartbeat_time_data,
     wd: heartbeat_work_data,
     ed: heartbeat_energy_data,
 }
