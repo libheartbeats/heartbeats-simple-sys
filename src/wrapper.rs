@@ -7,8 +7,8 @@ use std::os::unix::io::AsRawFd;
 
 /// Contains the Heartbeat and its window data buffer.
 pub struct Heartbeat {
-    pub hb: heartbeat_t,
-    pub hbr: Vec<heartbeat_record_t>,
+    pub hb: heartbeat_context,
+    pub hbr: Vec<heartbeat_record>,
 }
 
 impl Heartbeat {
