@@ -7,36 +7,25 @@ use std::os::unix::io::AsRawFd;
 
 /// Contains the Heartbeat and its window data buffer.
 pub struct Heartbeat {
-    pub hb: heartbeat_context,
-    pub hbr: Vec<heartbeat_record>,
+    pub hb: heartbeat_pow_context,
+    pub hbr: Vec<heartbeat_pow_record>,
 }
 
 impl Heartbeat {
     /// Allocate and initialize a new `Heartbeat`.
     pub fn new(window_size: usize,
-               hwc_callback: Option<heartbeat_window_complete>) -> Result<Heartbeat, &'static str> {
+               hwc_callback: Option<heartbeat_pow_window_complete>) -> Result<Heartbeat, &'static str> {
         let mut hbr = Vec::with_capacity(window_size);
         unsafe {
             let mut hb = mem::uninitialized();
-            match heartbeat_init(&mut hb, hbr.capacity() as u64, hbr.as_mut_ptr(), hwc_callback) {
+            match heartbeat_pow_init(&mut hb, hbr.capacity() as u64, hbr.as_mut_ptr(), hwc_callback) {
                 0 => Ok(Heartbeat { hb: hb, hbr: hbr, }),
                 _ => Err("Failed to initialize heartbeat")
             }
         }
     }
 
-    /// Issue a heartbeat.
-    pub fn heartbeat(&mut self,
-                     tag: u64,
-                     work: u64,
-                     start_time: u64,
-                     end_time: u64) {
-        unsafe {
-            heartbeat(&mut self.hb, tag, work, start_time, end_time);
-        }
-    }
-
-    /// Issue a heartbeat with energy data.
+    /// Issue a heartbeat
     pub fn heartbeat_pow(&mut self,
                          tag: u64,
                          work: u64,
@@ -56,7 +45,7 @@ impl Heartbeat {
             false => 0,
         };
         unsafe {
-            match heartbeat_log_window_buffer(&self.hb, log.as_raw_fd(), ph) {
+            match heartbeat_pow_log_window_buffer(&self.hb, log.as_raw_fd(), ph) {
                 0 => Ok(()),
                 _ => Err("Error logging window buffer"),
             }
@@ -66,21 +55,21 @@ impl Heartbeat {
     /// Utility function to get the most recent user-specified tag
     pub fn get_tag(&self) -> u64 {
         unsafe {
-            hb_get_user_tag(&self.hb)
+            hb_pow_get_user_tag(&self.hb)
         }
     }
 
     /// Utility function to get the current window performance.
     pub fn get_window_perf(&self) -> f64 {
         unsafe {
-            hb_get_window_rate(&self.hb)
+            hb_pow_get_window_perf(&self.hb)
         }
     }
 
     /// Utility function to get the current window power.
     pub fn get_window_pwr(&self) -> f64 {
         unsafe {
-            hb_get_window_power(&self.hb)
+            hb_pow_get_window_power(&self.hb)
         }
     }
 }
