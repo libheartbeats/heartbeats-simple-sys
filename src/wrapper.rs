@@ -1,4 +1,4 @@
-use super::*;
+use pow::*;
 use std::mem;
 #[cfg(unix)]
 use std::fs::File;
