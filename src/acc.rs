@@ -18,8 +18,7 @@ pub struct heartbeat_acc_record {
     pub end_time: uint64_t,
     pub perf: heartbeat_rates,
 
-    pub start_accuracy: uint64_t,
-    pub end_accuracy: uint64_t,
+    pub accuracy: uint64_t,
     pub acc: heartbeat_rates,
 }
 
@@ -50,8 +49,7 @@ extern "C" {
                          work: uint64_t,
                          start_time: uint64_t,
                          end_time: uint64_t,
-                         start_accuracy: uint64_t,
-                         end_accuracy: uint64_t);
+                         accuracy: uint64_t);
 
     pub fn heartbeat_acc_log_window_buffer(hb: *const heartbeat_acc_context,
                                            fd: c_int,

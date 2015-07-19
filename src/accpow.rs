@@ -18,8 +18,7 @@ pub struct heartbeat_acc_pow_record {
     pub end_time: uint64_t,
     pub perf: heartbeat_rates,
 
-    pub start_accuracy: uint64_t,
-    pub end_accuracy: uint64_t,
+    pub accuracy: uint64_t,
     pub acc: heartbeat_rates,
 
     pub start_energy: uint64_t,
@@ -55,8 +54,7 @@ extern "C" {
                              work: uint64_t,
                              start_time: uint64_t,
                              end_time: uint64_t,
-                             start_accuracy: uint64_t,
-                             end_accuracy: uint64_t,
+                             accuracy: uint64_t,
                              start_energy: uint64_t,
                              end_energy: uint64_t);
 
