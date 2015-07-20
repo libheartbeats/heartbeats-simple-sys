@@ -6,20 +6,20 @@ use std::fs::File;
 use std::os::unix::io::AsRawFd;
 
 /// Contains the Heartbeat and its window data buffer.
-pub struct Heartbeat {
+pub struct HeartbeatPow {
     pub hb: heartbeat_pow_context,
     pub hbr: Vec<heartbeat_pow_record>,
 }
 
-impl Heartbeat {
+impl HeartbeatPow {
     /// Allocate and initialize a new `Heartbeat`.
     pub fn new(window_size: usize,
-               hwc_callback: Option<heartbeat_pow_window_complete>) -> Result<Heartbeat, &'static str> {
+               hwc_callback: Option<heartbeat_pow_window_complete>) -> Result<HeartbeatPow, &'static str> {
         let mut hbr = Vec::with_capacity(window_size);
         unsafe {
             let mut hb = mem::uninitialized();
             match heartbeat_pow_init(&mut hb, hbr.capacity() as u64, hbr.as_mut_ptr(), hwc_callback) {
-                0 => Ok(Heartbeat { hb: hb, hbr: hbr, }),
+                0 => Ok(HeartbeatPow { hb: hb, hbr: hbr, }),
                 _ => Err("Failed to initialize heartbeat")
             }
         }
@@ -76,13 +76,13 @@ impl Heartbeat {
 
 #[cfg(test)]
 mod test {
-    use super::Heartbeat;
+    use super::HeartbeatPow;
 
     #[test]
     fn test_simple() {
         const TIME_INC: u64 = 1000000000;
         const ENERGY_INC: u64 = 1000000;
-        let mut hb = Heartbeat::new(5, None).unwrap();
+        let mut hb = HeartbeatPow::new(5, None).unwrap();
         let mut start_time: u64 = 0;
         let mut end_time: u64 = TIME_INC;
         let mut start_energy: u64 = 0;
