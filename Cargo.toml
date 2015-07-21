@@ -9,7 +9,6 @@ repository = "https://github.com/connorimes/heartbeats-simple-sys"
 keywords = ["heartbeats", "timing", "performance", "energy", "power", "bindings"]
 
 build = "build.rs"
-links = "hbs-pow"
 
 [dependencies]
 libc = "0.1"
