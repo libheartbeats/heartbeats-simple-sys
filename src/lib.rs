@@ -5,7 +5,6 @@ extern crate libc;
 pub mod acc;
 pub mod pow;
 pub mod accpow;
-pub mod wrapper;
 
 use libc::{uint64_t, c_double, c_int};
 
