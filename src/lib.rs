@@ -42,8 +42,10 @@ pub struct heartbeat_record {
     pub user_tag: uint64_t,
 
     pub work: uint64_t,
+    pub wd: heartbeat_udata,
     pub start_time: uint64_t,
     pub end_time: uint64_t,
+    pub td: heartbeat_udata,
     pub perf: heartbeat_rates,
 }
 
