@@ -56,9 +56,10 @@ extern "C" {
                          start_energy: uint64_t,
                          end_energy: uint64_t);
 
-    pub fn heartbeat_pow_log_window_buffer(hb: *const heartbeat_pow_context,
-                                           fd: c_int,
-                                           print_header: c_int) -> c_int;
+    pub fn hb_pow_log_header(fd: c_int) -> c_int;
+
+    pub fn hb_pow_log_window_buffer(hb: *const heartbeat_pow_context,
+                                    fd: c_int) -> c_int;
 
     // Utility functions
 

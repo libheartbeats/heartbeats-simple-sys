@@ -54,9 +54,10 @@ extern "C" {
                          end_time: uint64_t,
                          accuracy: uint64_t);
 
-    pub fn heartbeat_acc_log_window_buffer(hb: *const heartbeat_acc_context,
-                                           fd: c_int,
-                                           print_header: c_int) -> c_int;
+    pub fn hb_acc_log_header(fd: c_int) -> c_int;
+
+    pub fn hb_acc_log_window_buffer(hb: *const heartbeat_acc_context,
+                                    fd: c_int) -> c_int;
 
     // Utility functions
 
