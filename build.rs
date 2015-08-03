@@ -1,6 +1,8 @@
+extern crate pkg_config;
+
 fn main() {
-	println!("cargo:rustc-link-lib=hbs");
-	println!("cargo:rustc-link-lib=hbs-acc");
-    println!("cargo:rustc-link-lib=hbs-pow");
-    println!("cargo:rustc-link-lib=hbs-acc-pow");
+    pkg_config::find_library("hbs").unwrap();
+    pkg_config::find_library("hbs-acc").unwrap();
+    pkg_config::find_library("hbs-pow").unwrap();
+    pkg_config::find_library("hbs-acc-pow").unwrap();
 }
