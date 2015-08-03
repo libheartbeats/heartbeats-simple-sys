@@ -12,7 +12,8 @@ The latest `heartbeats-simple` C libraries can be found at
 ## Dependencies
 
 In order to use the `heartbeats-simple-sys` crate, you must have the
-`heartbeats-simple` libraries installed to the system.
+`heartbeats-simple` libraries installed to the system where they can be found
+by `pkg-config`.
 
 ## Usage
 Add `heartbeats-simple-sys` as a dependency in `Cargo.toml`:
