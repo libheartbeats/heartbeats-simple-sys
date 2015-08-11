@@ -1,0 +1,3 @@
+[submodule "heartbeats-simple"]
+	path = heartbeats-simple
+	url = https://github.com/connorimes/heartbeats-simple.git
