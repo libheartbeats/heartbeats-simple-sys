@@ -1,7 +1,10 @@
 #![allow(non_camel_case_types)]
 
+extern crate libc;
+extern crate hbs_common_sys;
+
 use libc::{uint64_t, c_double, c_int};
-use super::{heartbeat_udata, heartbeat_rates, heartbeat_window_state};
+use hbs_common_sys::{heartbeat_udata, heartbeat_rates, heartbeat_window_state};
 
 /// Typedef for the window completion callback function.
 #[repr(C)]
