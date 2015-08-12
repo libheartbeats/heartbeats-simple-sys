@@ -50,9 +50,7 @@ extern "C" {
                      user_tag: uint64_t,
                      work: uint64_t,
                      start_time: uint64_t,
-                     end_time: uint64_t,
-                     start_energy: uint64_t,
-                     end_energy: uint64_t);
+                     end_time: uint64_t);
 
     pub fn hb_log_header(fd: c_int) -> c_int;
 
