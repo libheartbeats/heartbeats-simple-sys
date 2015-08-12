@@ -7,7 +7,7 @@ does not define higher-level abstractions over the native `heartbeats-simple`
 library functions.
 
 The latest `heartbeats-simple` C libraries can be found at
-[https://github.com/connorimes/heartbeats-simple](https://github.com/connorimes/heartbeats-simple).
+[https://github.com/libheartbeats/heartbeats-simple](https://github.com/libheartbeats/heartbeats-simple).
 
 ## Dependencies
 
