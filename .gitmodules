@@ -1,3 +1,12 @@
-[submodule "heartbeats-simple"]
-	path = heartbeats-simple
+[submodule "hbs-sys/heartbeats-simple"]
+	path = hbs-sys/heartbeats-simple
+	url = https://github.com/connorimes/heartbeats-simple.git
+[submodule "hbs-acc-sys/heartbeats-simple"]
+	path = hbs-acc-sys/heartbeats-simple
+	url = https://github.com/connorimes/heartbeats-simple.git
+[submodule "hbs-pow-sys/heartbeats-simple"]
+	path = hbs-pow-sys/heartbeats-simple
+	url = https://github.com/connorimes/heartbeats-simple.git
+[submodule "hbs-acc-pow-sys/heartbeats-simple"]
+	path = hbs-acc-pow-sys/heartbeats-simple
 	url = https://github.com/connorimes/heartbeats-simple.git

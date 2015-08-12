@@ -9,12 +9,12 @@ fn main() {
     let hbs_pow = pkg_config::find_library("hbs-pow");
     if hbs_pow.is_err() {
         let src = PathBuf::from(&env::var_os("CARGO_MANIFEST_DIR").unwrap())
-                               .join("../heartbeats-simple");
+                               .join("heartbeats-simple");
         let dst = PathBuf::from(&env::var_os("OUT_DIR").unwrap());
         let _ = fs::create_dir(&dst);
         run(Command::new("make").current_dir(&src));
         println!("cargo:rustc-link-lib=static=hbs-pow-static");
-        println!("cargo:rustc-link-search=native=../heartbeats-simple/_build/lib")
+        println!("cargo:rustc-link-search=native={}/_build/lib", src.display())
     }
 }
 
