@@ -21,5 +21,5 @@ Add `hbs-pow-sys` as a dependency in `Cargo.toml`:
 
 ```toml
 [dependencies.hbs-pow-sys]
-git = "https://github.com/connorimes/heartbeats-simple-sys.git"
+git = "https://github.com/libheartbeats/heartbeats-simple-sys.git"
 ```
