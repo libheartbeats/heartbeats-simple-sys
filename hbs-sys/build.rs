@@ -13,9 +13,16 @@ fn main() {
         let dst = PathBuf::from(&env::var_os("OUT_DIR").unwrap());
         let _ = fs::create_dir(&dst);
         let build = src.join("_build");
+        let target: String = env::var("TARGET").unwrap();
+        let target_parts: Vec<&str> = target.split('-').collect();
+        let cmake_var = match target_parts[target_parts.len() - 1].starts_with("android") {
+            true => format!("-DCMAKE_TOOLCHAIN_FILE={}",
+                            src.join("cmake-toolchain").join("android.toolchain.cmake").display()),
+            false => "".to_owned(),
+        };
         remove_dir_all(&build).ok();
         create_dir_all(&build).unwrap();
-        run(Command::new("cmake").arg("..").current_dir(&build));
+        run(Command::new("cmake").arg(cmake_var).arg("..").current_dir(&build));
         run(Command::new("make").arg("hbs-static").current_dir(&build));
         println!("cargo:rustc-link-lib=static=hbs-static");
         println!("cargo:rustc-link-search=native={}/_build/lib", src.display())
