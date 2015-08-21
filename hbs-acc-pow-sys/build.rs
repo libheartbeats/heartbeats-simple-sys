@@ -22,7 +22,7 @@ fn main() {
         };
         remove_dir_all(&build).ok();
         create_dir_all(&build).unwrap();
-        run(Command::new("cmake").arg(cmake_var).arg("..").current_dir(&build));
+        run(Command::new("cmake").arg(cmake_var).arg(src.to_str().unwrap()).current_dir(&build));
         run(Command::new("make").arg("hbs-acc-pow-static").current_dir(&build));
         println!("cargo:rustc-link-lib=static=hbs-acc-pow-static");
         println!("cargo:rustc-link-search=native={}", build.join("lib").display());
