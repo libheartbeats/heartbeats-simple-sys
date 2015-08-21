@@ -25,7 +25,7 @@ fn main() {
         run(Command::new("cmake").arg(cmake_var).arg("..").current_dir(&build));
         run(Command::new("make").arg("hbs-pow-static").current_dir(&build));
         println!("cargo:rustc-link-lib=static=hbs-pow-static");
-        println!("cargo:rustc-link-search=native={}/_build/lib", src.display())
+        println!("cargo:rustc-link-search=native={}", build.join("lib").display());
     }
 }
 
