@@ -15,8 +15,7 @@ In order to use the `heartbeats-simple-sys` crate, you should have the
 `heartbeats-simple` libraries installed to the system where they can be found
 by `pkg-config`.
 
-If the libraries are not found, the build process will try to fetch and
-compile them.
+If the libraries are not found, the build process will try to compile them.
 
 ## Usage
 Add `heartbeats-simple-sys` as a dependency in `Cargo.toml`:
