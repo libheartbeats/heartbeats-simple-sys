@@ -13,3 +13,4 @@
 # Other
 Cargo.lock
 *.log
+*~
