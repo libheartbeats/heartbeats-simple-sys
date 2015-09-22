@@ -19,9 +19,19 @@ fn main() {
                                 src.join("cmake-toolchain").join("android.toolchain.cmake").display()),
                 false => "".to_owned(),
             };
+            let cmake_gen = match env::var("MSYSTEM") {
+                Ok(val) => {
+                    if val.contains("MINGW") {
+                        "-GMSYS Makefiles".to_owned()
+                    } else {
+                        "".to_owned()
+                    }
+                },
+                Err(_) => "".to_owned(),
+            };
             fs::remove_dir_all(&build).ok();
             fs::create_dir_all(&build).unwrap();
-            run(Command::new("cmake").arg(cmake_var).arg(src.to_str().unwrap()).current_dir(&build));
+            run(Command::new("cmake").arg(cmake_var).arg(cmake_gen).arg(src.to_str().unwrap()).current_dir(&build));
             run(Command::new("make").arg("hbs-static").current_dir(&build));
             println!("cargo:rustc-link-lib=static=hbs-static");
             println!("cargo:rustc-link-search=native={}", build.join("lib").display());
