@@ -11,6 +11,7 @@
 /target/
 
 # Other
+target/
 Cargo.lock
 *.log
 *~
