@@ -47,6 +47,7 @@ extern "C" {
     pub fn heartbeat_acc_init(hb: *mut heartbeat_acc_context,
                               window_size: uint64_t,
                               window_buffer: *mut heartbeat_acc_record,
+                              log_fd: c_int,
                               hwc_callback: Option<heartbeat_acc_window_complete>) -> c_int;
 
     pub fn heartbeat_acc(hb: *mut heartbeat_acc_context,
@@ -64,6 +65,7 @@ extern "C" {
     // Utility functions
 
     pub fn hb_acc_get_window_size(hb: *const heartbeat_acc_context) -> uint64_t;
+    pub fn hb_acc_get_log_fd(hb: *const heartbeat_acc_context) -> c_int;
 
     pub fn hb_acc_get_user_tag(hb: *const heartbeat_acc_context) -> uint64_t;
 

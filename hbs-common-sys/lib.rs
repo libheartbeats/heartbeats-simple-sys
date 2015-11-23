@@ -2,7 +2,7 @@
 
 extern crate libc;
 
-use libc::{uint64_t, c_double};
+use libc::{uint64_t, c_double, c_int};
 
 /// Unsigned global and window data.
 #[repr(C)]
@@ -25,4 +25,5 @@ pub struct heartbeat_window_state {
     pub buffer_index: uint64_t,
     pub read_index: uint64_t,
     pub window_size: uint64_t,
+    pub log_fd: c_int,
 }
