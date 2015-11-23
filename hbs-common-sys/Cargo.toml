@@ -1,6 +1,6 @@
 [package]
 name = "hbs-common-sys"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Connor Imes <connor.k.imes@gmail.com>"]
 description = "Common FFI bindings to heartbeats-simple libraries"
 license = "MIT"
