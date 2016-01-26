@@ -72,7 +72,7 @@ void* worker(void* arg) {
   return NULL;
 }
 
-int main(int argc, char** argv) {
+int main(void) {
   pthread_t threads[NTHREADS];
   worker_params params[NTHREADS];
   uint64_t i;
