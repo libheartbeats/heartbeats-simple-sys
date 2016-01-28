@@ -2,13 +2,13 @@
 name = "hbs-pow-sys"
 version = "0.2.0"
 authors = ["Connor Imes <connor.k.imes@gmail.com>"]
-description = "FFI bindings to libhbs-pow-static"
+description = "FFI bindings to libhbs-pow"
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/libheartbeats/heartbeats-simple-sys"
 repository = "https://github.com/libheartbeats/heartbeats-simple-sys"
 keywords = ["heartbeats", "timing", "performance", "energy", "power", "bindings"]
 
-links = "hbs-pow-static"
+links = "hbs-pow"
 build = "build.rs"
 
 [lib]
@@ -22,5 +22,4 @@ path = "../hbs-common-sys"
 libc = "0.2"
 
 [build-dependencies]
-pkg-config = "0.3.2"
-
+hbs-builder = { path = "../hbs-builder" }

@@ -1,0 +1,16 @@
+[package]
+name = "hbs-builder"
+version = "0.2.0"
+authors = ["Connor Imes <connor.k.imes@gmail.com>"]
+description = "Heartbeats-Simple Build Helper"
+license = "MIT OR Apache-2.0"
+homepage = "https://github.com/libheartbeats/heartbeats-simple-sys"
+repository = "https://github.com/libheartbeats/heartbeats-simple-sys"
+keywords = ["heartbeats", "build", "helper"]
+
+[lib]
+name = "hbs_builder"
+path = "lib.rs"
+
+[dependencies]
+pkg-config = "0.3.2"
