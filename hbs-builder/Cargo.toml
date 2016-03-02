@@ -13,4 +13,5 @@ name = "hbs_builder"
 path = "lib.rs"
 
 [dependencies]
+cmake = "0.1.13"
 pkg-config = "0.3.2"
