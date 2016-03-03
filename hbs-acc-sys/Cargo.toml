@@ -6,7 +6,7 @@ description = "FFI bindings to libhbs-acc"
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/libheartbeats/heartbeats-simple-sys"
 repository = "https://github.com/libheartbeats/heartbeats-simple-sys"
-keywords = ["heartbeats", "timing", "performance", "accuracy", "bindings"]
+keywords = ["heartbeats", "performance", "accuracy", "bindings"]
 
 links = "hbs-acc"
 build = "build.rs"

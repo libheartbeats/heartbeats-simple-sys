@@ -6,7 +6,7 @@ description = "Common FFI bindings to heartbeats-simple libraries"
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/libheartbeats/heartbeats-simple-sys"
 repository = "https://github.com/libheartbeats/heartbeats-simple-sys"
-keywords = ["heartbeats", "timing", "performance", "energy", "power", "bindings"]
+keywords = ["heartbeats", "performance", "power", "bindings"]
 
 [lib]
 name = "hbs_common_sys"
