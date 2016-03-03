@@ -9,8 +9,7 @@ pub fn find_or_build(lib: &str) {
     match pkg_config::find_library(lib) {
         Ok(_) => (),
         Err(_) => {
-            let src = PathBuf::from(&env::var_os("CARGO_MANIFEST_DIR").unwrap())
-                                   .parent().unwrap().join("heartbeats-simple");
+            let src = PathBuf::from(concat!(env!("CARGO_MANIFEST_DIR"), "/heartbeats-simple"));
             let mut config = Config::new(&src);
             config.define("BUILD_SHARED_LIBS", "false");
 
