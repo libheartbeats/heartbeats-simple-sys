@@ -1,7 +1,7 @@
 # Simple Heartbeats Rust Bindings
 
 The `hbs-acc-pow-sys` crate provides declarations and linkage for the
-`hbs-acc-pow-static` C library.
+`hbs-acc-pow` C library.
 Following the *-sys package conventions, this crate does not define
 higher-level abstractions over the native library functions.
 
@@ -19,6 +19,6 @@ If the libraries are not found, the build process will try to compile them.
 Add `hbs-acc-pow-sys` as a dependency in `Cargo.toml`:
 
 ```toml
-[dependencies.hbs-acc-pow-sys]
-git = "https://github.com/libheartbeats/heartbeats-simple-sys.git"
+[dependencies]
+hbs-acc-pow-sys = "0.2"
 ```

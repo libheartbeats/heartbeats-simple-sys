@@ -1,7 +1,7 @@
 # Simple Heartbeats Rust Bindings
 
 The `hbs-acc-sys` crate provides declarations and linkage for the
-`hbs-acc-static` C library.
+`hbs-acc` C library.
 Following the *-sys package conventions, this crate does not define
 higher-level abstractions over the native library functions.
 
@@ -19,6 +19,6 @@ If the libraries are not found, the build process will try to compile them.
 Add `hbs-acc-sys` as a dependency in `Cargo.toml`:
 
 ```toml
-[dependencies.hbs-acc-sys]
-git = "https://github.com/libheartbeats/heartbeats-simple-sys.git"
+[dependencies]
+hbs-acc-sys = "0.2"
 ```

@@ -1,6 +1,6 @@
 # Simple Heartbeats Rust Bindings
 
-The `hbs-sys` crate provides declarations and linkage for the `hbs-static` C
+The `hbs-sys` crate provides declarations and linkage for the `hbs` C
 library.
 Following the *-sys package conventions, this crate does not define
 higher-level abstractions over the native library functions.
@@ -19,6 +19,6 @@ If the libraries are not found, the build process will try to compile them.
 Add `hbs-sys` as a dependency in `Cargo.toml`:
 
 ```toml
-[dependencies.hbs-sys]
-git = "https://github.com/libheartbeats/heartbeats-simple-sys.git"
+[dependencies]
+hbs-sys = "0.2"
 ```

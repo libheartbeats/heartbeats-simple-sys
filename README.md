@@ -6,6 +6,16 @@ Following the *-sys package conventions, the `heartbeats-simple-sys` crate
 does not define higher-level abstractions over the native `heartbeats-simple`
 library functions.
 
+This project provides separate crates with bindings for the four
+`heartbeats-simple` libraries:
+
+* hbs-sys
+* hbs-acc-sys
+* hbs-pow-sys
+* hbs-acc-pow-sys
+
+The top-level `heartbeats-simple-sys` crate re-exports bindings for all four.
+
 The latest `heartbeats-simple` C libraries can be found at
 [https://github.com/libheartbeats/heartbeats-simple](https://github.com/libheartbeats/heartbeats-simple).
 
@@ -21,8 +31,8 @@ If the libraries are not found, the build process will try to compile them.
 Add `heartbeats-simple-sys` as a dependency in `Cargo.toml`:
 
 ```toml
-[dependencies.heartbeats-simple-sys]
-git = "https://github.com/libheartbeats/heartbeats-simple-sys.git"
+[dependencies]
+heartbeats-simple-sys = "0.2"
 ```
 
 ## License
