@@ -6,26 +6,18 @@ description = "FFI bindings to heartbeats-simple libraries"
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/libheartbeats/heartbeats-simple-sys"
 repository = "https://github.com/libheartbeats/heartbeats-simple-sys"
-keywords = ["heartbeats", "timing", "performance", "accuracy", "energy", "power", "bindings"]
+keywords = ["heartbeats", "performance", "accuracy", "power", "bindings"]
 
 [lib]
 name = "heartbeats_simple_sys"
 path = "lib.rs"
 
-[dependencies.hbs-common-sys]
-path = "hbs-common-sys"
-
-[dependencies.hbs-sys]
-path = "hbs-sys"
-
-[dependencies.hbs-acc-sys]
-path = "hbs-acc-sys"
-
-[dependencies.hbs-pow-sys]
-path = "hbs-pow-sys"
-
-[dependencies.hbs-acc-pow-sys]
-path = "hbs-acc-pow-sys"
+[dependencies]
+hbs-common-sys = "0.2"
+hbs-sys = "0.2"
+hbs-acc-sys = "0.2"
+hbs-pow-sys = "0.2"
+hbs-acc-pow-sys = "0.2"
 
 [build-dependencies]
 pkg-config = "0.3.2"

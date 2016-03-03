@@ -15,11 +15,9 @@ build = "build.rs"
 name = "hbs_acc_sys"
 path = "lib.rs"
 
-[dependencies.hbs-common-sys]
-path = "../hbs-common-sys"
-
 [dependencies]
 libc = "0.2"
+hbs-common-sys = "0.2"
 
 [build-dependencies]
-hbs-builder = { path = "../hbs-builder" }
+hbs-builder = "0.2"
