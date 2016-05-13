@@ -1,6 +1,6 @@
 [package]
 name = "hbs-builder"
-version = "0.2.0"
+version = "0.2.1"
 authors = ["Connor Imes <connor.k.imes@gmail.com>"]
 description = "Heartbeats-Simple Build Helper"
 license = "MIT OR Apache-2.0"
