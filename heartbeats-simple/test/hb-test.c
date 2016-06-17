@@ -6,7 +6,99 @@
 #include <assert.h>
 #include <inttypes.h>
 #include <stdlib.h>
+#include "heartbeat.h"
+#include "heartbeat-acc.h"
+#include "heartbeat-pow.h"
 #include "heartbeat-acc-pow.h"
+
+static const uint64_t window_size = 20;
+
+/**
+ * Just tests that the functions are all there.
+ */
+void test_hb(void) {
+  heartbeat_context hb;
+  heartbeat_record* window_buffer = malloc(window_size * sizeof(heartbeat_record));
+  heartbeat_init(&hb, window_size, window_buffer, -1, NULL);
+  heartbeat(&hb, 0, 1, 0, 1000000000);
+  hb_log_header(1);
+  hb_log_window_buffer(&hb, 1);
+
+  hb_get_window_size(&hb);
+  hb_get_log_fd(&hb);
+  hb_get_user_tag(&hb);
+  hb_get_global_time(&hb);
+  hb_get_window_time(&hb);
+  hb_get_global_work(&hb);
+  hb_get_window_work(&hb);
+  hb_get_global_perf(&hb);
+  hb_get_window_perf(&hb);
+  hb_get_instant_perf(&hb);
+
+  free(window_buffer);
+}
+
+/**
+ * Just tests that the functions are all there.
+ */
+void test_hb_acc(void) {
+  heartbeat_acc_context hb;
+  heartbeat_acc_record* window_buffer = malloc(window_size * sizeof(heartbeat_acc_record));
+  heartbeat_acc_init(&hb, window_size, window_buffer, -1, NULL);
+  heartbeat_acc(&hb, 0, 1, 0, 1000000000, 1);
+  hb_acc_log_header(1);
+  hb_acc_log_window_buffer(&hb, 1);
+
+  hb_acc_get_window_size(&hb);
+  hb_acc_get_log_fd(&hb);
+  hb_acc_get_user_tag(&hb);
+  hb_acc_get_global_time(&hb);
+  hb_acc_get_window_time(&hb);
+  hb_acc_get_global_work(&hb);
+  hb_acc_get_window_work(&hb);
+  hb_acc_get_global_perf(&hb);
+  hb_acc_get_window_perf(&hb);
+  hb_acc_get_instant_perf(&hb);
+  hb_acc_get_global_accuracy(&hb);
+  hb_acc_get_window_accuracy(&hb);
+  hb_acc_get_global_accuracy_rate(&hb);
+  hb_acc_get_window_accuracy_rate(&hb);
+  hb_acc_get_instant_accuracy_rate(&hb);
+
+  free(window_buffer);
+}
+
+/**
+ * Just tests that the functions are all there.
+ */
+void test_hb_pow(void) {
+  heartbeat_pow_context hb;
+  heartbeat_pow_record* window_buffer = malloc(window_size * sizeof(heartbeat_pow_record));
+  heartbeat_pow_init(&hb, window_size, window_buffer, -1, NULL);
+  heartbeat_pow(&hb, 0, 1, 0, 1000000000, 0, 1000000);
+  hb_pow_log_header(1);
+  hb_pow_log_window_buffer(&hb, 1);
+
+  hb_pow_get_window_size(&hb);
+  hb_pow_get_log_fd(&hb);
+  hb_pow_get_user_tag(&hb);
+  hb_pow_get_global_time(&hb);
+  hb_pow_get_window_time(&hb);
+  hb_pow_get_global_work(&hb);
+  hb_pow_get_window_work(&hb);
+  hb_pow_get_global_perf(&hb);
+  hb_pow_get_window_perf(&hb);
+  hb_pow_get_instant_perf(&hb);
+  hb_pow_get_global_energy(&hb);
+  hb_pow_get_window_energy(&hb);
+  hb_pow_get_global_power(&hb);
+  hb_pow_get_window_power(&hb);
+  hb_pow_get_instant_power(&hb);
+
+  free(window_buffer);
+}
+
+// Actual tests
 
 /**
  * Just tests that the functions are all there.
@@ -203,10 +295,17 @@ void test_bad_arguments() {
   free(window_buffer);
 }
 
-int main(void) {
+void test_hb_acc_pow(void) {
   test_functions_exist();
   test_two_hb();
   test_callback();
   test_bad_arguments();
+}
+
+int main(void) {
+  test_hb();
+  test_hb_acc();
+  test_hb_pow();
+  test_hb_acc_pow();
   return 0;
 }

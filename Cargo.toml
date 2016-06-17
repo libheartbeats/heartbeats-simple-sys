@@ -1,23 +1,23 @@
 [package]
 name = "heartbeats-simple-sys"
-version = "0.2.1"
+version = "0.3.0"
 authors = ["Connor Imes <connor.k.imes@gmail.com>"]
-description = "FFI bindings to heartbeats-simple libraries"
+description = "FFI bindings to heartbeats-simple"
 license = "MIT OR Apache-2.0"
 homepage = "https://github.com/libheartbeats/heartbeats-simple-sys"
 repository = "https://github.com/libheartbeats/heartbeats-simple-sys"
 keywords = ["heartbeats", "performance", "accuracy", "power", "bindings"]
+
+links = "heartbeats-simple"
+build = "build.rs"
 
 [lib]
 name = "heartbeats_simple_sys"
 path = "lib.rs"
 
 [dependencies]
-hbs-common-sys = "0.2"
-hbs-sys = "0.2"
-hbs-acc-sys = "0.2"
-hbs-pow-sys = "0.2"
-hbs-acc-pow-sys = "0.2"
+libc = "0.2"
 
 [build-dependencies]
 pkg-config = "0.3.2"
+cmake = "0.1.13"

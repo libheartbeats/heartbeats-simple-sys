@@ -1,7 +1,5 @@
 #![allow(non_camel_case_types)]
 
-extern crate libc;
-
 use libc::{uint64_t, c_double, c_int};
 
 /// Unsigned global and window data.
