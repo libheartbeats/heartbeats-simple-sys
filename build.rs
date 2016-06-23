@@ -18,6 +18,10 @@ fn main() {
             if target_parts[target_parts.len() - 1].starts_with("android") {
                 config.define("CMAKE_TOOLCHAIN_FILE",
                               src.join("cmake-toolchain").join("android.toolchain.cmake"));
+                // the cmake toolchain above has some specific ideas of what
+                // needs to be set
+                env::set_var("ANDROID_STANDALONE_TOOLCHAIN", env::var("ANDROID_TOOLCHAIN").unwrap());
+                env::remove_var("ANDROID_NDK");
             }
 
             // build/install everything - the build is fast and portable enough
