@@ -1,12 +1,12 @@
 # Simple Heartbeats Rust Bindings
 
 The `heartbeats-simple-sys` crate provides declarations and linkage for the
-`heartbeats-simple` C libraries.
+`heartbeats-simple` C library.
 Following the *-sys package conventions, the `heartbeats-simple-sys` crate
 does not define higher-level abstractions over the native `heartbeats-simple`
 library functions.
 
-The latest `heartbeats-simple` C libraries can be found at
+The latest `heartbeats-simple` C library can be found at
 [https://github.com/libheartbeats/heartbeats-simple](https://github.com/libheartbeats/heartbeats-simple).
 
 ## Dependencies
