@@ -31,7 +31,6 @@ pub struct heartbeat_context {
 
     pub td: heartbeat_udata,
     pub wd: heartbeat_udata,
-    pub ed: heartbeat_udata,
 }
 
 extern "C" {
