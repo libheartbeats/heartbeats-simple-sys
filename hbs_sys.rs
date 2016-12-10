@@ -4,7 +4,7 @@ use libc::{uint64_t, c_double, c_int};
 use hbs_common_sys::{heartbeat_udata, heartbeat_rates, heartbeat_window_state};
 
 /// Typedef for the window completion callback function.
-pub type heartbeat_window_complete = extern fn(*const heartbeat_context);
+pub type heartbeat_window_complete = Option<extern "C" fn(*const heartbeat_context)>;
 
 /// A heartbeat record with current rates.
 #[repr(C)]
@@ -40,7 +40,7 @@ extern "C" {
                           window_size: uint64_t,
                           window_buffer: *mut heartbeat_record,
                           log_fd: c_int,
-                          hwc_callback: Option<heartbeat_window_complete>) -> c_int;
+                          hwc_callback: heartbeat_window_complete) -> c_int;
 
     pub fn heartbeat(hb: *mut heartbeat_context,
                      user_tag: uint64_t,
