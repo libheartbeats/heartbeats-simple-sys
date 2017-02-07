@@ -2,10 +2,9 @@
 
 Provides simplified performance, accuracy, and power tracking.
 
-See
-[https://github.com/libheartbeats/heartbeats](https://github.com/libheartbeats/heartbeats)
-for the original libraries that support shared memory and manage memory and
-energy readers automatically.
+For the original libraries that support shared memory and manage memory and energy readers automatically, see [heartbeats](https://github.com/libheartbeats/heartbeats).
+
+Also see [heartbeats-simple-classic](https://github.com/libheartbeats/heartbeats-simple-classic), which wraps this library and [energymon](https://github.com/energymon/energymon) to provide an interface similar to the original heartbeats design.
 
 ## Building
 
@@ -22,7 +21,7 @@ make
 
 ## Installing
 
-To install all libraries and headers, run with proper privileges:
+To install, run with proper privileges:
 
 ``` sh
 make install
@@ -35,9 +34,15 @@ header files in `/usr/local/include`.
 
 Install must be run before uninstalling in order to have a manifest.
 
-To remove libraries and headers installed to the system, run with proper
-privileges:
+To uninstall, run with proper privileges:
 
 ``` sh
 make uninstall
 ```
+
+## Project Source
+
+Find this and related project sources at the [libheartbeats organization on GitHub](https://github.com/libheartbeats).  
+This project originates at: https://github.com/libheartbeats/heartbeats-simple
+
+Bug reports and pull requests for bug fixes and enhancements are welcome.
