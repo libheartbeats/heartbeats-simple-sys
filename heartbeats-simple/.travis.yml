@@ -2,13 +2,6 @@ os:
   - linux
   - osx
 
-addons:
-  apt:
-    sources:
-      - kubuntu-backports
-    packages:
-      - cmake
-
 language: c
 
 compiler:
@@ -18,6 +11,11 @@ compiler:
 script:
   - mkdir _build
   - cd _build
-  - cmake ..
-  - make
-  - make test
+    # Test build with stricter flags
+  - export CFLAGS="-D_FORTIFY_SOURCE=2 -fstack-protector -g3 -pedantic -W -Wall -Wbad-function-cast -Wcast-align
+      -Wcast-qual -Wdisabled-optimization -Wendif-labels -Wfloat-equal -Wformat=2 -Wformat-nonliteral -Winline
+      -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wno-unused-parameter -Wpointer-arith -Wshadow
+      -Wstrict-prototypes -Wstack-protector -Wswitch -Wundef -Wwrite-strings"
+  - cmake .. -DCMAKE_C_FLAGS="$CFLAGS"
+  - cmake --build .
+  - ctest -VV
